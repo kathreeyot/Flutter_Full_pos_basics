@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_basic_pos/sidebar.dart';
 import 'menu_item.dart';
 import 'database.dart';
 import 'image_picker.dart';
@@ -173,6 +174,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: Navbar(title: 'Restaurant POS'),
+      drawer: SideBar(),
       body: Column(
         children: [
           Expanded(
