@@ -5,9 +5,11 @@ import '../database/database.dart';
 import 'image_picker.dart';
 import '../navbar_sidebar/navbar.dart';
 
-void main() => runApp(HomeScreen());
+void main() => runApp(const HomeScreen());
 
 class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
+
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
@@ -173,8 +175,8 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: Navbar(title: 'Restaurant POS'),
-      drawer: SideBar(),
+      appBar: const Navbar(title: 'Restaurant POS'),
+      drawer: const SideBar(),
       body: Column(
         children: [
           Expanded(
@@ -231,7 +233,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 trailing: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text('\บาท${selectedItem.price.toStringAsFixed(2)}'),
+                    Text('บาท${selectedItem.price.toStringAsFixed(2)}'),
                     IconButton(
                       icon: const Icon(Icons.remove_shopping_cart),
                       onPressed: () {

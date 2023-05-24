@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_basic_pos/FormScreen/homescreen.dart';
 
 class SideBar extends StatelessWidget {
+  const SideBar({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
-          DrawerHeader(
+          const DrawerHeader(
             decoration: BoxDecoration(
               color: Colors.blue,
             ),
@@ -21,10 +23,10 @@ class SideBar extends StatelessWidget {
             ),
           ),
           ListTile(
-            title: Text('ยอดที่ได้วันนี้'),
+            title: const Text('ยอดที่ได้วันนี้'),
             onTap: () {
               Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return HomeScreen();
+                return const HomeScreen();
               }));
             },
           ),

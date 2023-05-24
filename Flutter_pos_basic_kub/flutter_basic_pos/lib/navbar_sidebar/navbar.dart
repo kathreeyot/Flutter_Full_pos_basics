@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class Navbar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
 
-  const Navbar({required this.title});
+  const Navbar({super.key, required this.title});
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
