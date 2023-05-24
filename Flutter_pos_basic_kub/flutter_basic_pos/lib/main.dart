@@ -2,6 +2,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
+import 'menu_item.dart';
+
 void main() => runApp(PosApp());
 
 class PosApp extends StatelessWidget {
@@ -30,7 +32,7 @@ class _PosHomePageState extends State<PosHomePage> {
   List<MenuItem> selectedItems = [];
 
   Future<void> _pickImage(int index) async {
-    final pickedImage = await ImagePicker().getImage(source: ImageSource.gallery);
+    final pickedImage = await ImagePicker().pickImage(source: ImageSource.gallery);
     setState(() {
       if (pickedImage != null) {
         menuItems[index].image = File(pickedImage.path);
@@ -217,11 +219,3 @@ class _PosHomePageState extends State<PosHomePage> {
   }
 }
 
-class MenuItem {
-  String name;
-  String description;
-  double price;
-  File? image;
-
-  MenuItem(this.name, this.description, this.price, this.image);
-}
