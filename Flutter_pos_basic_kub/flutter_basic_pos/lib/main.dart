@@ -24,9 +24,7 @@ class PosHomePage extends StatefulWidget {
 
 class _PosHomePageState extends State<PosHomePage> {
   List<MenuItem> menuItems = [
-    MenuItem('Burger', 'A delicious burger', 9.99, null),
-    MenuItem('Pizza', 'Freshly baked pizza', 12.99, null),
-    MenuItem('Salad', 'Healthy salad', 7.99, null),
+  
   ];
 
   List<MenuItem> selectedItems = [];
@@ -110,12 +108,41 @@ class _PosHomePageState extends State<PosHomePage> {
     );
   }
 
+  void _deleteMenuItem(MenuItem menuItem) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Delete Menu Item'),
+          content: Text('Are you sure you want to delete this item?'),
+          actions: [
+            ElevatedButton(
+              child: Text('Cancel'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            ElevatedButton(
+              child: Text('Delete'),
+              onPressed: () {
+                setState(() {
+                  menuItems.remove(menuItem);
+                });
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   void _addMenuItem() {
     setState(() {
       menuItems.add(MenuItem('New Item', 'Description', 0.0, null));
     });
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -128,17 +155,34 @@ class _PosHomePageState extends State<PosHomePage> {
             child: ListView.builder(
               itemCount: menuItems.length,
               itemBuilder: (ctx, index) {
+                final menuItem = menuItems[index];
                 return ListTile(
-                  leading: menuItems[index].image != null
+                  leading: menuItem.image != null
                       ? CircleAvatar(
-                          backgroundImage: FileImage(menuItems[index].image!),
+                          backgroundImage: FileImage(menuItem.image!),
                         )
                       : Icon(Icons.image),
-                  title: Text(menuItems[index].name),
-                  subtitle: Text(menuItems[index].description),
-                  trailing: Text('\$${menuItems[index].price.toStringAsFixed(2)}'),
+                  title: Text(menuItem.name),
+                  subtitle: Text(menuItem.description),
+                  trailing: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      IconButton(
+                        icon: Icon(Icons.edit),
+                        onPressed: () {
+                          _editMenuItem(menuItem);
+                        },
+                      ),
+                      IconButton(
+                        icon: Icon(Icons.delete),
+                        onPressed: () {
+                          _deleteMenuItem(menuItem);
+                        },
+                      ),
+                    ],
+                  ),
                   onTap: () {
-                    _editMenuItem(menuItems[index]);
+                    _editMenuItem(menuItem);
                   },
                 );
               },
