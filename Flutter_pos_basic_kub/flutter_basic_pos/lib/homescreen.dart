@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'menu_item.dart';
 import 'database.dart';
 import 'image_picker.dart';
-void main() => runApp( HomeScreen());
+import 'navbar.dart';
+
+void main() => runApp(HomeScreen());
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -147,12 +149,30 @@ class _HomeScreenState extends State<HomeScreen> {
     _saveMenuItems();
   }
 
+  double _calculateTotalPrice() {
+    double totalPrice = 0.0;
+    for (final item in selectedItems) {
+      totalPrice += item.price;
+    }
+    return totalPrice;
+  }
+
+  void _addToCart(MenuItem menuItem) {
+    setState(() {
+      selectedItems.add(menuItem);
+    });
+  }
+
+  void _removeFromCart(MenuItem menuItem) {
+    setState(() {
+      selectedItems.remove(menuItem);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Restaurant POS'),
-      ),
+      appBar: Navbar(title: 'Restaurant POS'),
       body: Column(
         children: [
           Expanded(
@@ -184,6 +204,12 @@ class _HomeScreenState extends State<HomeScreen> {
                           _deleteMenuItem(menuItem);
                         },
                       ),
+                      IconButton(
+                        icon: const Icon(Icons.add_shopping_cart),
+                        onPressed: () {
+                          _addToCart(menuItem);
+                        },
+                      ),
                     ],
                   ),
                 );
@@ -196,19 +222,45 @@ class _HomeScreenState extends State<HomeScreen> {
             shrinkWrap: true,
             itemCount: selectedItems.length,
             itemBuilder: (ctx, index) {
+              final selectedItem = selectedItems[index];
               return ListTile(
-                title: Text(selectedItems[index].name),
-                subtitle: Text(selectedItems[index].description),
-                trailing: Text('\$${selectedItems[index].price.toStringAsFixed(2)}'),
+                title: Text(selectedItem.name),
+                subtitle: Text(selectedItem.description),
+                trailing: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text('\$${selectedItem.price.toStringAsFixed(2)}'),
+                    IconButton(
+                      icon: const Icon(Icons.remove_shopping_cart),
+                      onPressed: () {
+                        _removeFromCart(selectedItem);
+                      },
+                    ),
+                  ],
+                ),
               );
             },
           ),
-          ElevatedButton(
-            child: const Text('Place Order'),
-            onPressed: () {
-              // Handle order placement logic
-            },
+          const SizedBox(height: 16.0),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                ElevatedButton(
+                  child: const Text('Place Order'),
+                  onPressed: () {
+                    // Handle order placement logic
+                  },
+                ),
+                Text(
+                  '\$${_calculateTotalPrice().toStringAsFixed(2)}',
+                  style: const TextStyle(fontSize: 18.0),
+                ),
+              ],
+            ),
           ),
+          const SizedBox(height: 16.0),
           ElevatedButton(
             onPressed: _addMenuItem,
             child: const Text('Add Item'),
