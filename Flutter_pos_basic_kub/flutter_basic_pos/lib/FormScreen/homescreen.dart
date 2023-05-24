@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_basic_pos/sidebar.dart';
-import 'menu_item.dart';
-import 'database.dart';
+import 'package:flutter_basic_pos/navbar_sidebar/sidebar.dart';
+import '../required data/menu_item.dart';
+import '../database/database.dart';
 import 'image_picker.dart';
-import 'navbar.dart';
+import '../navbar_sidebar/navbar.dart';
 
 void main() => runApp(HomeScreen());
 
@@ -256,7 +256,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   },
                 ),
                 Text(
-                  '\บาท${_calculateTotalPrice().toStringAsFixed(2)}',
+                  'บาท${_calculateTotalPrice().toStringAsFixed(2)}',
                   style: const TextStyle(fontSize: 18.0),
                 ),
               ],

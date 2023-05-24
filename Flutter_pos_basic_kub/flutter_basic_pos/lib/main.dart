@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:flutter_basic_pos/homescreen.dart';
-import 'package:flutter_basic_pos/menu_item.dart';
+import 'package:flutter_basic_pos/FormScreen/homescreen.dart';
+import 'package:flutter_basic_pos/required%20data/menu_item.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
