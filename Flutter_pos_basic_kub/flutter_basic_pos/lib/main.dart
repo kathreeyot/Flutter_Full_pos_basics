@@ -5,9 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-void main() => runApp(PosApp());
+void main() => runApp(const PosApp());
 
 class PosApp extends StatelessWidget {
+  const PosApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -15,12 +17,14 @@ class PosApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: PosHomePage(),
+      home: const PosHomePage(),
     );
   }
 }
 
 class PosHomePage extends StatefulWidget {
+  const PosHomePage({super.key});
+
   @override
   _PosHomePageState createState() => _PosHomePageState();
 }
@@ -73,35 +77,35 @@ class _PosHomePageState extends State<PosHomePage> {
         double editedPrice = menuItem.price;
 
         return AlertDialog(
-          title: Text('Edit Menu Item'),
+          title: const Text('Edit Menu Item'),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               TextField(
-                decoration: InputDecoration(labelText: 'Name'),
+                decoration: const InputDecoration(labelText: 'Name'),
                 onChanged: (value) {
                   editedName = value;
                 },
               ),
               TextField(
-                decoration: InputDecoration(labelText: 'Description'),
+                decoration: const InputDecoration(labelText: 'Description'),
                 onChanged: (value) {
                   editedDescription = value;
                 },
               ),
               TextField(
-                decoration: InputDecoration(labelText: 'Price'),
+                decoration: const InputDecoration(labelText: 'Price'),
                 keyboardType: TextInputType.number,
                 onChanged: (value) {
                   editedPrice = double.tryParse(value) ?? 0.0;
                 },
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   ElevatedButton(
-                    child: Text('Pick Image'),
+                    child: const Text('Pick Image'),
                     onPressed: () {
                       _pickImage(menuItems.indexOf(menuItem));
                     },
@@ -112,13 +116,13 @@ class _PosHomePageState extends State<PosHomePage> {
           ),
           actions: [
             ElevatedButton(
-              child: Text('Cancel'),
+              child: const Text('Cancel'),
               onPressed: () {
                 Navigator.of(context).pop();
               },
             ),
             ElevatedButton(
-              child: Text('Save'),
+              child: const Text('Save'),
               onPressed: () {
                 setState(() {
                   menuItem.name = editedName;
@@ -140,17 +144,17 @@ class _PosHomePageState extends State<PosHomePage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Delete Menu Item'),
-          content: Text('Are you sure you want to delete this item?'),
+          title: const Text('Delete Menu Item'),
+          content: const Text('Are you sure you want to delete this item?'),
           actions: [
             ElevatedButton(
-              child: Text('Cancel'),
+              child: const Text('Cancel'),
               onPressed: () {
                 Navigator.of(context).pop();
               },
             ),
             ElevatedButton(
-              child: Text('Delete'),
+              child: const Text('Delete'),
               onPressed: () {
                 setState(() {
                   menuItems.remove(menuItem);
@@ -176,7 +180,7 @@ class _PosHomePageState extends State<PosHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Restaurant POS'),
+        title: const Text('Restaurant POS'),
       ),
       body: Column(
         children: [
@@ -190,20 +194,20 @@ class _PosHomePageState extends State<PosHomePage> {
                       ? CircleAvatar(
                           backgroundImage: FileImage(menuItem.image!),
                         )
-                      : Icon(Icons.image),
+                      : const Icon(Icons.image),
                   title: Text(menuItem.name),
                   subtitle: Text(menuItem.description),
                   trailing: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       IconButton(
-                        icon: Icon(Icons.edit),
+                        icon: const Icon(Icons.edit),
                         onPressed: () {
                           _editMenuItem(menuItem);
                         },
                       ),
                       IconButton(
-                        icon: Icon(Icons.delete),
+                        icon: const Icon(Icons.delete),
                         onPressed: () {
                           _deleteMenuItem(menuItem);
                         },
@@ -217,8 +221,8 @@ class _PosHomePageState extends State<PosHomePage> {
               },
             ),
           ),
-          Divider(),
-          Text('Selected Items'),
+          const Divider(),
+          const Text('Selected Items'),
           ListView.builder(
             shrinkWrap: true,
             itemCount: selectedItems.length,
@@ -232,14 +236,14 @@ class _PosHomePageState extends State<PosHomePage> {
             },
           ),
           ElevatedButton(
-            child: Text('Place Order'),
+            child: const Text('Place Order'),
             onPressed: () {
               // Handle order placement logic
             },
           ),
           ElevatedButton(
-            child: Text('Add Item'),
             onPressed: _addMenuItem,
+            child: const Text('Add Item'),
           ),
         ],
       ),
