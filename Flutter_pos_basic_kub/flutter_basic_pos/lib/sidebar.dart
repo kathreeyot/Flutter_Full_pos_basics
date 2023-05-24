@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_basic_pos/homescreen.dart';
 
 class SideBar extends StatelessWidget {
   @override
@@ -20,9 +21,12 @@ class SideBar extends StatelessWidget {
             ),
           ),
           ListTile(
-            leading: Icon(Icons.access_time),
-            title: Text('Current Time'),
-            subtitle: Text(DateTime.now().toString()),
+            title: Text('ยอดที่ได้วันนี้'),
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return HomeScreen();
+              }));
+            },
           ),
         ],
       ),
