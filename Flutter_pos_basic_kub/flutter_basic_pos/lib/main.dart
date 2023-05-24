@@ -1,8 +1,9 @@
+import 'dart:convert';
 import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-
-import 'menu_item.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() => runApp(PosApp());
 
@@ -25,14 +26,37 @@ class PosHomePage extends StatefulWidget {
 }
 
 class _PosHomePageState extends State<PosHomePage> {
-  List<MenuItem> menuItems = [
-  
-  ];
-
+  SharedPreferences? _preferences;
+  List<MenuItem> menuItems = [];
   List<MenuItem> selectedItems = [];
 
+  @override
+  void initState() {
+    super.initState();
+    _loadMenuItems();
+  }
+
+  Future<void> _loadMenuItems() async {
+    _preferences = await SharedPreferences.getInstance();
+    final List<String>? savedItems = _preferences!.getStringList('menuItems');
+    if (savedItems != null) {
+      setState(() {
+        menuItems = savedItems
+            .map((item) => MenuItem.fromMap(jsonDecode(item)))
+            .toList();
+      });
+    }
+  }
+
+  Future<void> _saveMenuItems() async {
+    final List<String> items =
+        menuItems.map((item) => jsonEncode(item.toMap())).toList();
+    await _preferences!.setStringList('menuItems', items);
+  }
+
   Future<void> _pickImage(int index) async {
-    final pickedImage = await ImagePicker().pickImage(source: ImageSource.gallery);
+    final pickedImage =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
     setState(() {
       if (pickedImage != null) {
         menuItems[index].image = File(pickedImage.path);
@@ -102,6 +126,7 @@ class _PosHomePageState extends State<PosHomePage> {
                   menuItem.price = editedPrice;
                 });
                 Navigator.of(context).pop();
+                _saveMenuItems();
               },
             ),
           ],
@@ -131,6 +156,7 @@ class _PosHomePageState extends State<PosHomePage> {
                   menuItems.remove(menuItem);
                 });
                 Navigator.of(context).pop();
+                _saveMenuItems();
               },
             ),
           ],
@@ -143,6 +169,7 @@ class _PosHomePageState extends State<PosHomePage> {
     setState(() {
       menuItems.add(MenuItem('New Item', 'Description', 0.0, null));
     });
+    _saveMenuItems();
   }
 
   @override
@@ -199,7 +226,8 @@ class _PosHomePageState extends State<PosHomePage> {
               return ListTile(
                 title: Text(selectedItems[index].name),
                 subtitle: Text(selectedItems[index].description),
-                trailing: Text('\$${selectedItems[index].price.toStringAsFixed(2)}'),
+                trailing:
+                    Text('\$${selectedItems[index].price.toStringAsFixed(2)}'),
               );
             },
           ),
@@ -219,3 +247,29 @@ class _PosHomePageState extends State<PosHomePage> {
   }
 }
 
+class MenuItem {
+  String name;
+  String description;
+  double price;
+  File? image;
+
+  MenuItem(this.name, this.description, this.price, this.image);
+
+  Map<String, dynamic> toMap() {
+    return {
+      'name': name,
+      'description': description,
+      'price': price,
+      'image': image?.path,
+    };
+  }
+
+  factory MenuItem.fromMap(Map<String, dynamic> map) {
+    return MenuItem(
+      map['name'],
+      map['description'],
+      map['price'],
+      map['image'] != null ? File(map['image']) : null,
+    );
+  }
+}
