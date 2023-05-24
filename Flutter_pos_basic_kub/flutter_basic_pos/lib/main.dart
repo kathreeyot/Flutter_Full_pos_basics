@@ -1,10 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:sembast/sembast.dart';
-import 'package:sembast_sqflite/sembast_sqflite.dart';
-import 'package:path_provider/path_provider.dart';
-
 
 void main() => runApp(PosApp());
 
@@ -114,6 +110,12 @@ class _PosHomePageState extends State<PosHomePage> {
     );
   }
 
+  void _addMenuItem() {
+    setState(() {
+      menuItems.add(MenuItem('New Item', 'Description', 0.0, null));
+    });
+  }
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -155,11 +157,15 @@ class _PosHomePageState extends State<PosHomePage> {
               );
             },
           ),
-          ElevatedButton  (
+          ElevatedButton(
             child: Text('Place Order'),
             onPressed: () {
               // Handle order placement logic
             },
+          ),
+          ElevatedButton(
+            child: Text('Add Item'),
+            onPressed: _addMenuItem,
           ),
         ],
       ),
