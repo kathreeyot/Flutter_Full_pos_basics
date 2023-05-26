@@ -5,8 +5,6 @@ import '../database/database.dart';
 import 'image_picker.dart';
 import '../navbar_sidebar/navbar.dart';
 
-void main() => runApp(const HomeScreen());
-
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 

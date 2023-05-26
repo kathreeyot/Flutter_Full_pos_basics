@@ -8,3 +8,4 @@ class ImagePickerService {
     return pickedImage != null ? File(pickedImage.path) : null;
   }
 }
+//สร้างmethood
