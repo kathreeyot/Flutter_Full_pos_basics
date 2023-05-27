@@ -5,8 +5,9 @@ class MenuItem {
   String description;
   double price;
   File? image;
+  int quantity; // New field for quantity
 
-  MenuItem(this.name, this.description, this.price, this.image);
+  MenuItem(this.name, this.description, this.price, this.image, {this.quantity = 1});
 
   Map<String, dynamic> toMap() {
     return {

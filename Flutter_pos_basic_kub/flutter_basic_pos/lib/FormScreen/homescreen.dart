@@ -153,20 +153,40 @@ class _HomeScreenState extends State<HomeScreen> {
   double _calculateTotalPrice() {
     double totalPrice = 0.0;
     for (final item in selectedItems) {
-      totalPrice += item.price;
+      totalPrice += item.price * item.quantity;
     }
     return totalPrice;
   }
 
   void _addToCart(MenuItem menuItem) {
     setState(() {
-      selectedItems.add(menuItem);
+      final existingItemIndex =
+          selectedItems.indexWhere((item) => item.name == menuItem.name);
+
+      if (existingItemIndex != -1) {
+        selectedItems[existingItemIndex].quantity++;
+      } else {
+        selectedItems.add(MenuItem(
+          menuItem.name,
+          menuItem.description,
+          menuItem.price,
+          menuItem.image,
+        ));
+      }
     });
   }
 
   void _removeFromCart(MenuItem menuItem) {
     setState(() {
-      selectedItems.remove(menuItem);
+      final existingItemIndex =
+          selectedItems.indexWhere((item) => item.name == menuItem.name);
+
+      if (existingItemIndex != -1) {
+        selectedItems[existingItemIndex].quantity--;
+        if (selectedItems[existingItemIndex].quantity <= 0) {
+          selectedItems.removeAt(existingItemIndex);
+        }
+      }
     });
   }
 
