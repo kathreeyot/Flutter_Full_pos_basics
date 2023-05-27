@@ -256,7 +256,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   },
                 ),
                 Text(
-                  'บาท${_calculateTotalPrice().toStringAsFixed(2)}',
+                  '\บาท${_calculateTotalPrice().toStringAsFixed(2)}',
                   style: const TextStyle(fontSize: 18.0),
                 ),
               ],
