@@ -1,7 +1,7 @@
 import 'package:flutter_basic_pos/FormScreen/homescreen.dart';
 import 'package:flutter/material.dart';
 
-void main() => runApp(const HomeScreen());
+void main() => runApp(const PosApp());
 
 class PosApp extends StatelessWidget {
   const PosApp({super.key});
