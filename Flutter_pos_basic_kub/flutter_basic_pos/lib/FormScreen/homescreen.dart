@@ -241,28 +241,38 @@ class _HomeScreenState extends State<HomeScreen> {
           const Divider(),
           const Text('Selected Items'),
           ListView.builder(
-            shrinkWrap: true,
-            itemCount: selectedItems.length,
-            itemBuilder: (ctx, index) {
-              final selectedItem = selectedItems[index];
-              return ListTile(
-                title: Text(selectedItem.name),
-                subtitle: Text(selectedItem.description),
-                trailing: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text('บาท${selectedItem.price.toStringAsFixed(2)}'),
-                    IconButton(
-                      icon: const Icon(Icons.remove_shopping_cart),
-                      onPressed: () {
-                        _removeFromCart(selectedItem);
-                      },
-                    ),
-                  ],
-                ),
-              );
+  shrinkWrap: true,
+  itemCount: selectedItems.length,
+  itemBuilder: (ctx, index) {
+    final selectedItem = selectedItems[index];
+    return ListTile(
+      title: Text(selectedItem.name),
+      subtitle: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(selectedItem.description),
+          Text(
+            'Quantity: ${selectedItem.quantity}',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+        ],
+      ),
+      trailing: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text('บาท${selectedItem.price.toStringAsFixed(2)}'),
+          IconButton(
+            icon: const Icon(Icons.remove_shopping_cart),
+            onPressed: () {
+              _removeFromCart(selectedItem);
             },
           ),
+        ],
+      ),
+    );
+  },
+),
+
           const SizedBox(height: 16.0),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
