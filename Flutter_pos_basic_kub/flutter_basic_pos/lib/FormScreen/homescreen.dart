@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:flutter_basic_pos/navbar_sidebar/sidebar.dart';
 import '../required data/menu_item.dart';
@@ -241,38 +243,38 @@ class _HomeScreenState extends State<HomeScreen> {
           const Divider(),
           const Text('Selected Items'),
           ListView.builder(
-  shrinkWrap: true,
-  itemCount: selectedItems.length,
-  itemBuilder: (ctx, index) {
-    final selectedItem = selectedItems[index];
-    return ListTile(
-      title: Text(selectedItem.name),
-      subtitle: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(selectedItem.description),
-          Text(
-            'Quantity: ${selectedItem.quantity}',
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
-        ],
-      ),
-      trailing: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text('\บาท${selectedItem.price.toStringAsFixed(2)}'),
-          IconButton(
-            icon: const Icon(Icons.remove_shopping_cart),
-            onPressed: () {
-              _removeFromCart(selectedItem);
+            shrinkWrap: true,
+            itemCount: selectedItems.length,
+            itemBuilder: (ctx, index) {
+              final selectedItem = selectedItems[index];
+              return ListTile(
+                title: Text(selectedItem.name),
+                subtitle: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(selectedItem.description),
+                    Text(
+                      'Quantity: ${selectedItem.quantity}',
+                      style: const TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+                trailing: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                        '${(selectedItem.price * selectedItem.quantity).toStringAsFixed(2)}บาท'),
+                    IconButton(
+                      icon: const Icon(Icons.remove_shopping_cart),
+                      onPressed: () {
+                        _removeFromCart(selectedItem);
+                      },
+                    ),
+                  ],
+                ),
+              );
             },
           ),
-        ],
-      ),
-    );
-  },
-),
-
           const SizedBox(height: 16.0),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -281,12 +283,10 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 ElevatedButton(
                   child: const Text('Place Order'),
-                  onPressed: () {
-                    
-                  },
+                  onPressed: () {},
                 ),
                 Text(
-                  '\บาท${_calculateTotalPrice().toStringAsFixed(2)}',
+                  '${_calculateTotalPrice().toStringAsFixed(2)}บาท',
                   style: const TextStyle(fontSize: 18.0),
                 ),
               ],
