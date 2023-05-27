@@ -260,7 +260,7 @@ class _HomeScreenState extends State<HomeScreen> {
       trailing: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text('บาท${selectedItem.price.toStringAsFixed(2)}'),
+          Text('\บาท${selectedItem.price.toStringAsFixed(2)}'),
           IconButton(
             icon: const Icon(Icons.remove_shopping_cart),
             onPressed: () {
