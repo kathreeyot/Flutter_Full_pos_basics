@@ -5,7 +5,7 @@ class MenuItem {
   String description;
   double price;
   File? image;
-  int quantity; // New field for quantity
+  int quantity; 
 
   MenuItem(this.name, this.description, this.price, this.image, {this.quantity = 1});
 

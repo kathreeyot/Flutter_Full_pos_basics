@@ -282,7 +282,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ElevatedButton(
                   child: const Text('Place Order'),
                   onPressed: () {
-                    // Handle order placement logic
+                    
                   },
                 ),
                 Text(
