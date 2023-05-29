@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_basic_pos/FormScreen/homescreen.dart';
+import '../FormScreen/addmenu.screen.dart';
 
 class SideBar extends StatelessWidget {
   const SideBar({super.key});
@@ -23,10 +23,10 @@ class SideBar extends StatelessWidget {
             ),
           ),
           ListTile(
-            title: const Text('ยอดที่ได้วันนี้'),
+            title: const Text("Add Menu"),
             onTap: () {
               Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return const HomeScreen();
+                return const AddMenuScreen();
               }));
             },
           ),
