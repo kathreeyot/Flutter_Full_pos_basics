@@ -1,10 +1,10 @@
 
 import 'package:flutter/material.dart';
-import 'package:flutter_basic_pos/navbar_sidebar/sidebar.dart';
+import 'package:flutter_basic_pos/navbar_sidebar/side_bar.dart';
 import '../required data/menu_item.dart';
-import '../database/database.dart';
+import '../database/data_base.dart';
 import 'image_picker.dart';
-import '../navbar_sidebar/navbar.dart';
+import '../navbar_sidebar/nav_bar.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -281,6 +281,7 @@ class _HomeScreenState extends State<HomeScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 ElevatedButton(
+                  style: ElevatedButton.styleFrom(backgroundColor: Colors.purple),
                   child: const Text('Place Order'),
                   onPressed: () {},
                 ),
@@ -293,8 +294,14 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           const SizedBox(height: 16.0),
           ElevatedButton(
+            style:ElevatedButton.styleFrom(
+              backgroundColor: Colors.purple 
+
+            ),
             onPressed: _addMenuItem,
             child: const Text('Add Item'),
+            
+            
           ),
         ],
       ),
