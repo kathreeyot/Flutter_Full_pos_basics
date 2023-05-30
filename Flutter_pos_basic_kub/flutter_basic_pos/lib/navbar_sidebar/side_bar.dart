@@ -11,16 +11,16 @@ class SideBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 170, // Set the width of the side menu as per your requirement
+      width: 60, // Set the width of the side menu as per your requirement
       color: Colors.black38, // Set the background color of the side menu
-      height: 400,
+      height: 500,
       // Add your menu items here
       child: Column(
         children: [
           ListTile(
               leading: const Icon(Icons.home),
               iconColor: Colors.white,
-              title: const Text('Home'),
+              title: const Text(''),
               textColor: Colors.white,
               onTap: () => Navigator.pushReplacement(
                   context,
@@ -29,7 +29,7 @@ class SideBar extends StatelessWidget {
           ListTile(
               leading: const Icon(Icons.add_circle),
               iconColor: Colors.white,
-              title: const Text('Add Menu'),
+              title: const Text(''),
               textColor: Colors.white,
               onTap: () => Navigator.pushReplacement(
                   context,
@@ -38,7 +38,7 @@ class SideBar extends StatelessWidget {
           ListTile(
               leading: const Icon(Icons.account_balance_wallet),
               iconColor: Colors.white,
-              title: const Text('CheckBill'),
+              title: const Text(''),
               textColor: Colors.white,
               onTap: () => Navigator.pushReplacement(
                   context,
@@ -47,7 +47,7 @@ class SideBar extends StatelessWidget {
           ListTile(
               leading: const Icon(Icons.app_registration),
               iconColor: Colors.white,
-              title: const Text('Order'),
+              title: const Text(''),
               textColor: Colors.white,
               onTap: () => Navigator.pushReplacement(
                   context,
@@ -56,7 +56,7 @@ class SideBar extends StatelessWidget {
           ListTile(
               leading: const Icon(Icons.account_balance),
               iconColor: Colors.white,
-              title: const Text('Summary'),
+              title: const Text(''),
               textColor: Colors.white,
               onTap: () => Navigator.pushReplacement(
                   context,
