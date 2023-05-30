@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_basic_pos/navbar_sidebar/side_bar.dart';
 import '../required data/menu_item.dart';
@@ -195,9 +194,17 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const Navbar(title: 'Main'),
-      drawer: const SideBar(),
       body: Column(
         children: [
+          Row(
+            children: [
+              SideBar(),
+              Expanded(
+                  child: Container(
+                color: Colors.purple,
+              ))
+            ],
+          ),
           Expanded(
             child: ListView.builder(
               itemCount: menuItems.length,
@@ -281,7 +288,8 @@ class _HomeScreenState extends State<HomeScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 ElevatedButton(
-                  style: ElevatedButton.styleFrom(backgroundColor: Colors.purple),
+                  style:
+                      ElevatedButton.styleFrom(backgroundColor: Colors.purple),
                   child: const Text('Place Order'),
                   onPressed: () {},
                 ),
@@ -294,14 +302,9 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           const SizedBox(height: 16.0),
           ElevatedButton(
-            style:ElevatedButton.styleFrom(
-              backgroundColor: Colors.purple 
-
-            ),
+            style: ElevatedButton.styleFrom(backgroundColor: Colors.purple),
             onPressed: _addMenuItem,
             child: const Text('Add Item'),
-            
-            
           ),
         ],
       ),

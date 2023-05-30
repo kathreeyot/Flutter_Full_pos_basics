@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_basic_pos/FormScreen/add_menu_screen.dart';
 import 'package:flutter_basic_pos/FormScreen/check_bill.dart';
+import 'package:flutter_basic_pos/FormScreen/home_screen.dart';
 import 'package:flutter_basic_pos/FormScreen/order_screen.dart';
 import 'package:flutter_basic_pos/FormScreen/summary_price.dart';
 
@@ -9,43 +10,58 @@ class SideBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Drawer(
-      child: ListView(
-        padding: EdgeInsets.zero,
+    return Container(
+      width: 170, // Set the width of the side menu as per your requirement
+      color: Colors.black38, // Set the background color of the side menu
+      height: 400,
+      // Add your menu items here
+      child: Column(
         children: [
-          const DrawerHeader(
-            decoration: BoxDecoration(
-              color: Colors.red,
-            ),
-            child: Text(
-              'Sidebar',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 24,
-              ),
-            ),
-          ),
           ListTile(
-              title: const Text('Add Menu'),
-              onTap: () => Navigator.push(
+              leading: const Icon(Icons.home),
+              iconColor: Colors.white,
+              title: const Text('Home'),
+              textColor: Colors.white,
+              onTap: () => Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => const AddMenuScreen()))),
+                      builder: ((context) => const HomeScreen())))),
           ListTile(
-            title: const Text('Check Bill'),
-            onTap: () => Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const CheckBill())),
-          ),
+              leading: const Icon(Icons.add_circle),
+              iconColor: Colors.white,
+              title: const Text('Add Menu'),
+              textColor: Colors.white,
+              onTap: () => Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: ((context) => const AddMenuScreen())))),
           ListTile(
-            title: const Text('Order Screen'),
-            onTap: () => Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const OrderScreen())),
-          ),
+              leading: const Icon(Icons.account_balance_wallet),
+              iconColor: Colors.white,
+              title: const Text('CheckBill'),
+              textColor: Colors.white,
+              onTap: () => Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: ((context) => const CheckBill())))),
           ListTile(
-            title: const Text('Summary'),
-            onTap: () => Navigator.pop(context,
-                MaterialPageRoute(builder: (context) => const SummaryPrice())),
-          )
+              leading: const Icon(Icons.app_registration),
+              iconColor: Colors.white,
+              title: const Text('Order'),
+              textColor: Colors.white,
+              onTap: () => Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: ((context) => const OrderScreen())))),
+          ListTile(
+              leading: const Icon(Icons.account_balance),
+              iconColor: Colors.white,
+              title: const Text('Summary'),
+              textColor: Colors.white,
+              onTap: () => Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: ((context) => const SummaryPrice())))),
         ],
       ),
     );

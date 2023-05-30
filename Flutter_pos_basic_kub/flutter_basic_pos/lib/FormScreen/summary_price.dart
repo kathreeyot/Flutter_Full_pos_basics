@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_basic_pos/navbar_sidebar/nav_bar.dart';
 
+import '../navbar_sidebar/side_bar.dart';
+
 class SummaryPrice extends StatefulWidget {
   const SummaryPrice({super.key});
 
@@ -14,7 +16,18 @@ class _SummaryPriceState extends State<SummaryPrice> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: Navbar(title: 'Summary'),
-      body: Column(),
-    );
+     body: Column(children: [
+          Row(
+            children: [
+              SideBar(),
+              Expanded(
+                  child: Container(
+                color: Colors.purple,
+              ))
+            ],
+          ),
+        ]
+    ));
+    
   }
 }
