@@ -17,15 +17,7 @@ class _CheckBillState extends State<CheckBill> {
     return Scaffold(
         appBar: const Navbar(title: "Check Bill"),
         body: Column(children: [
-          Row(
-            children: [
-              const SideBar(),
-              Expanded(
-                  child: Container(
-                color: Colors.purple,
-              ))
-            ],
-          ),
+          SideBar(),
         ]));
   }
 }

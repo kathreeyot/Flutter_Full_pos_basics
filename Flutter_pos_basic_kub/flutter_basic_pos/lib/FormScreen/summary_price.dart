@@ -15,19 +15,9 @@ class _SummaryPriceState extends State<SummaryPrice> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: Navbar(title: 'Summary'),
-     body: Column(children: [
-          Row(
-            children: [
-              SideBar(),
-              Expanded(
-                  child: Container(
-                color: Colors.purple,
-              ))
-            ],
-          ),
-        ]
-    ));
-    
+        appBar: Navbar(title: 'Summary'),
+        body: Column(children: [
+          SideBar(),
+        ]));
   }
 }

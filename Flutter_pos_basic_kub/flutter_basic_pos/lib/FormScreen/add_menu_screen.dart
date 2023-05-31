@@ -196,15 +196,7 @@ class _AddMenuScreenState extends State<AddMenuScreen> {
     return Scaffold(
         appBar: const Navbar(title: 'Add Menu'),
         body: Column(children: [
-          Row(
-            children: [
-              SideBar(),
-              Expanded(
-                  child: Container(
-                color: Colors.purple,
-              ))
-            ],
-          ),
+          SideBar(),
           Expanded(
             child: ListView.builder(
               itemCount: menuItems.length,

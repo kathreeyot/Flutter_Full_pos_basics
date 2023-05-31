@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_basic_pos/navbar_sidebar/nav_bar.dart';
 
@@ -15,20 +13,10 @@ class OrderScreen extends StatefulWidget {
 class _OrderScreenState extends State<OrderScreen> {
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
-      appBar: Navbar(title: 'Order Screen'),
-      body: Column(children: [
-          Row(
-            children: [
-              SideBar(),
-              Expanded(
-                  child: Container(
-                color: Colors.purple,
-              ))
-            ],
-          ),
-        ]
-    ));
-    
+    return Scaffold(
+        appBar: Navbar(title: 'Order Screen'),
+        body: Column(children: [
+          SideBar(),
+        ]));
   }
 }

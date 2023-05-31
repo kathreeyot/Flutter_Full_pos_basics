@@ -11,25 +11,12 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const Navbar(title: 'Main'),
       body: Column(
-        children: [
-          Row(
-            children: [
-              SideBar(),
-              Expanded(
-                  child: Container(
-                color: Colors.purple,
-              ))
-            ],
-          ),
-          
-        ],
+        children: [SideBar()],
       ),
     );
   }
