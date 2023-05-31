@@ -16,6 +16,7 @@ class SideBar extends StatelessWidget {
       height: 500,
       // Add your menu items here
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
           ListTile(
               leading: const Icon(Icons.home),

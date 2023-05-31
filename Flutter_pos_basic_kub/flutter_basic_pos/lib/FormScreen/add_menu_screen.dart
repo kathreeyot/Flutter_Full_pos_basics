@@ -198,7 +198,7 @@ class _AddMenuScreenState extends State<AddMenuScreen> {
         body: Column(children: [
           Row(
             children: [
-              const SideBar(),
+              SideBar(),
               Expanded(
                   child: Container(
                 color: Colors.purple,
