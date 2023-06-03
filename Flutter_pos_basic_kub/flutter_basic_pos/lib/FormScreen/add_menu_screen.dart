@@ -15,6 +15,9 @@ class AddMenuScreen extends StatefulWidget {
 }
 
 class _AddMenuScreenState extends State<AddMenuScreen> {
+  final titleController =
+    TextEditingController(); //รับข้อมูล ควบคุมเอาไปใช้ค่าอื่นต่อได้
+final amountController = TextEditingController();
   final Database _database = Database();
   final ImagePickerService _imagePickerService = ImagePickerService();
   List<MenuItem> menuItems = [];
@@ -149,7 +152,7 @@ class _AddMenuScreenState extends State<AddMenuScreen> {
     setState(() {
       final newItem = MenuItem('New Item', 'Description', 0.0, null);
       menuItems.add(newItem);
-      widget.onItemAdded(newItem); // Trigger the callback function
+      widget.onItemAdded(newItem);
     });
     _saveMenuItems();
   }
@@ -249,8 +252,29 @@ class _AddMenuScreenState extends State<AddMenuScreen> {
                     ),
                   ),
                 ),
-                const Divider(),
-                const Text('Selected Items'),
+                TextFormField(
+                  decoration: const InputDecoration(labelText: "ชื่อรายการ"),
+                  controller: titleController,
+                  validator: (input) {
+                    if (input!.isEmpty) {
+                      return "กรุณากรอกชื่อรายการ";
+                    }
+                    return null;
+                  },
+                ),
+                TextFormField(decoration: const InputDecoration(labelText: "จํานวนเงิน"),
+                  keyboardType: TextInputType.number,
+                  controller: amountController,
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return "กรุณากรอกจํานวนเงิน";
+                    }
+                    if (double.tryParse(value)! <= 0) {
+                      return "กรุณาป้อนตัวเลขมากกว่า0";
+                    }
+
+                    return null;
+                  },),
                 Expanded(
                   child: ListView.builder(
                     shrinkWrap: true,
