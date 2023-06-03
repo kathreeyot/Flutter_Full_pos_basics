@@ -36,7 +36,7 @@ class SideBar extends StatelessWidget {
               onTap: () => Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                      builder: ((context) => const AddMenuScreen())))),
+                      builder: ((context) =>  AddMenuScreen(onItemAdded: (MenuItem ) {  },))))),
           ListTile(
               leading: const Icon(Icons.account_balance_wallet),
               iconColor: Colors.white,

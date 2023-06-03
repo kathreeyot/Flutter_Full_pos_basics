@@ -7,7 +7,8 @@ import '../required data/menu_item.dart';
 import 'image_picker.dart';
 
 class AddMenuScreen extends StatefulWidget {
-  const AddMenuScreen({super.key});
+  const AddMenuScreen({super.key, required this.onItemAdded});
+  final Function(MenuItem) onItemAdded;
 
   @override
   State<AddMenuScreen> createState() => _AddMenuScreenState();
@@ -146,7 +147,9 @@ class _AddMenuScreenState extends State<AddMenuScreen> {
 
   void _addMenuItem() {
     setState(() {
-      menuItems.add(MenuItem('New Item', 'Description', 0.0, null));
+      final newItem = MenuItem('New Item', 'Description', 0.0, null);
+      menuItems.add(newItem);
+      widget.onItemAdded(newItem); // Trigger the callback function
     });
     _saveMenuItems();
   }
@@ -194,110 +197,127 @@ class _AddMenuScreenState extends State<AddMenuScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: const Navbar(title: 'Add Menu'),
-        body: Column(children: [
+      appBar: const Navbar(title: 'Add Menu'),
+      body: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
           SideBar(),
           Expanded(
-            child: ListView.builder(
-              itemCount: menuItems.length,
-              itemBuilder: (ctx, index) {
-                final menuItem = menuItems[index];
-                return ListTile(
-                  leading: menuItem.image != null
-                      ? CircleAvatar(
-                          backgroundImage: FileImage(menuItem.image!),
-                        )
-                      : const Icon(Icons.image),
-                  title: Text(menuItem.name),
-                  subtitle: Text(menuItem.description),
-                  trailing: Row(
-                    mainAxisSize: MainAxisSize.min,
+            child: Column(
+              children: [
+                Expanded(
+                  child: SizedBox(
+                    height: 300,
+                    child: ListView.builder(
+                      itemCount: menuItems.length,
+                      itemBuilder: (ctx, index) {
+                        final menuItem = menuItems[index];
+                        return ListTile(
+                          leading: menuItem.image != null
+                              ? CircleAvatar(
+                                  backgroundImage: FileImage(menuItem.image!),
+                                )
+                              : const Icon(Icons.image),
+                          title: Text(menuItem.name),
+                          subtitle: Text(menuItem.description),
+                          trailing: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(menuItem.price.toString()),
+                              IconButton(
+                                icon: const Icon(Icons.edit),
+                                onPressed: () {
+                                  _editMenuItem(menuItem);
+                                },
+                              ),
+                              IconButton(
+                                icon: const Icon(Icons.delete),
+                                onPressed: () {
+                                  _deleteMenuItem(menuItem);
+                                },
+                              ),
+                              IconButton(
+                                icon: const Icon(Icons.add_shopping_cart),
+                                onPressed: () {
+                                  _addToCart(menuItem);
+                                },
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ),
+                const Divider(),
+                const Text('Selected Items'),
+                Expanded(
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: selectedItems.length,
+                    itemBuilder: (ctx, index) {
+                      final selectedItem = selectedItems[index];
+                      return ListTile(
+                        title: Text(selectedItem.name),
+                        subtitle: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(selectedItem.description),
+                            Text(
+                              'Quantity: ${selectedItem.quantity}',
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
+                        trailing: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                                '${(selectedItem.price * selectedItem.quantity).toStringAsFixed(2)}บาท'),
+                            IconButton(
+                              icon: const Icon(Icons.remove_shopping_cart),
+                              onPressed: () {
+                                _removeFromCart(selectedItem);
+                              },
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  ),
+                ),
+                const SizedBox(height: 16.0),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(menuItem.price.toString()),
-                      IconButton(
-                        icon: const Icon(Icons.edit),
-                        onPressed: () {
-                          _editMenuItem(menuItem);
-                        },
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.purple),
+                        child: const Text('Place Order'),
+                        onPressed: () {},
                       ),
-                      IconButton(
-                        icon: const Icon(Icons.delete),
-                        onPressed: () {
-                          _deleteMenuItem(menuItem);
-                        },
-                      ),
-                      IconButton(
-                        icon: const Icon(Icons.add_shopping_cart),
-                        onPressed: () {
-                          _addToCart(menuItem);
-                        },
+                      Text(
+                        '${_calculateTotalPrice().toStringAsFixed(2)}บาท',
+                        style: const TextStyle(fontSize: 18.0),
                       ),
                     ],
                   ),
-                );
-              },
-            ),
-          ),
-          const Divider(),
-          const Text('Selected Items'),
-          ListView.builder(
-            shrinkWrap: true,
-            itemCount: selectedItems.length,
-            itemBuilder: (ctx, index) {
-              final selectedItem = selectedItems[index];
-              return ListTile(
-                title: Text(selectedItem.name),
-                subtitle: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(selectedItem.description),
-                    Text(
-                      'Quantity: ${selectedItem.quantity}',
-                      style: const TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                  ],
                 ),
-                trailing: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                        '${(selectedItem.price * selectedItem.quantity).toStringAsFixed(2)}บาท'),
-                    IconButton(
-                      icon: const Icon(Icons.remove_shopping_cart),
-                      onPressed: () {
-                        _removeFromCart(selectedItem);
-                      },
-                    ),
-                  ],
-                ),
-              );
-            },
-          ),
-          const SizedBox(height: 16.0),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
+                const SizedBox(height: 16.0),
                 ElevatedButton(
                   style:
                       ElevatedButton.styleFrom(backgroundColor: Colors.purple),
-                  child: const Text('Place Order'),
-                  onPressed: () {},
-                ),
-                Text(
-                  '${_calculateTotalPrice().toStringAsFixed(2)}บาท',
-                  style: const TextStyle(fontSize: 18.0),
+                  onPressed: _addMenuItem,
+                  child: const Text('Add Item'),
                 ),
               ],
             ),
           ),
-          const SizedBox(height: 16.0),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(backgroundColor: Colors.purple),
-            onPressed: _addMenuItem,
-            child: const Text('Add Item'),
-          ),
-        ]));
+        ],
+      ),
+    );
   }
 }

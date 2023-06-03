@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_basic_pos/navbar_sidebar/side_bar.dart';
 
 import '../navbar_sidebar/nav_bar.dart';
-
+import '../required data/menu_item.dart';
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
